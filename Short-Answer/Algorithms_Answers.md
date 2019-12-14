@@ -18,3 +18,13 @@ So in this case, since j is always multiplying by 2, this loop will only run unt
 c) The function is calling itself down to the base case. Assume "bunnies" = 10, and since we're subtracting bunnies-1 on each recursive call, it will call itself 10 times when it reaches that base case so this is still pretty linear and thus is O(n).
 
 ## Exercise II
+
+For this, let's just give an example numbers...let's assume there are 20 floors. And let's assume for this problem that any eggs dropped above floor 5 breaks, but 5 and below doesn't.
+
+So for this case, I'd probably always want to start at the center...so let's say the 10th floor. In this case, we can say that the current floor is n/2 by default.
+
+Then, we can make some kind of evaluation.
+
+if dropped_egg on this floor == broken egg, we're going to have to adjust the current floor. We could subtract - 1 to the current floor, but that would mean we would always be subtracting down until we find the right floor...which could take a while. In this case, we could just halve it each time. So in this case, we're on the 10th floor. The egg breaks. Let's halve it. Now, the current floor is 5.
+
+Well, in this case, if drop an egg here, the egg doesn't break. So that's good, but now we need to check and see as well that the floor above it doesn't break. So in this case, we could write a case that if the egg dropped on current floor doesn't break and the egg dropped on the current floor + 1 breaks, we have found our "f". If the egg dropped on the current floor + 1 doesn't break...then we might have to adjust the floor a little higher. In this case, let's pretend our "f" was something like 7. Well, now we'd have to try and catch that by adjusting the current floor to basically between 10 and 5. So we could set it to what current floor + (current floor/2). Visualizing it, that would mean 5 + (5/2), which would put this at 8. Evaluate it again. If egg breaks on floor 8, we'll have to adjust again to half of 8 (current floor) and 5 (prev floor)...ultimately, we're essentially running a binary search...where we're basically just always cutting things in half until we find the solution. This would result in this problem being O(log n).
